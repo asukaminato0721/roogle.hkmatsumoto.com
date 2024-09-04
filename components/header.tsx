@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
+import SyntaxHighlighter from 'react-syntax-highlighter';
 
 import { ScopesContext } from "../contexts/scopes";
-
 type FormData = {
   query: string,
   scope: string,
@@ -12,6 +13,7 @@ type FormData = {
 
 export default function Header() {
   const router = useRouter();
+  const [query_text, set_query_text] = useState("");
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       query: "",
@@ -23,6 +25,7 @@ export default function Header() {
   useEffect(() => {
     if (router.query.query) {
       setValue("query", router.query.query as string)
+      set_query_text(router.query.query as string)  
     }
     if (router.query.scope) {
       setValue("scope", router.query.scope as string)
@@ -54,8 +57,12 @@ export default function Header() {
           }
         </select>
         <input type="text" {...register("query")} placeholder="Search for ..."
+          onChange={e=>set_query_text(e.target.value)}
           className="w-full font-mono font-bold text-2xl p-2 my-3 border focus:outline-none focus border-black focus:border-blue-600" />
       </form>
+      <SyntaxHighlighter language="rust" style={docco}>
+        {query_text}
+      </SyntaxHighlighter>
     </div>
   )
 }
