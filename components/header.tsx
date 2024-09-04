@@ -27,7 +27,7 @@ export default function Header() {
     if (router.query.scope) {
       setValue("scope", router.query.scope as string)
     }
-  }, [router.query])
+  }, [router.query, setValue])
 
   const onSubmit = (data: FormData) => {
     router.push({

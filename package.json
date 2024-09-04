@@ -27,5 +27,24 @@
     "postcss": "^8.3.11",
     "tailwindcss": "^2.2.17",
     "typescript": "4.4.4"
+  },
+  "overrides": {
+    "array-includes": "npm:@nolyfill/array-includes@^1",
+    "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@^1",
+    "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@^1",
+    "assert": "npm:@nolyfill/assert@^1",
+    "has": "npm:@nolyfill/has@^1",
+    "is-arguments": "npm:@nolyfill/is-arguments@^1",
+    "is-core-module": "npm:@nolyfill/is-core-module@^1",
+    "is-generator-function": "npm:@nolyfill/is-generator-function@^1",
+    "is-typed-array": "npm:@nolyfill/is-typed-array@^1",
+    "isarray": "npm:@nolyfill/isarray@^1",
+    "object.assign": "npm:@nolyfill/object.assign@^1",
+    "object.entries": "npm:@nolyfill/object.entries@^1",
+    "object.fromentries": "npm:@nolyfill/object.fromentries@^1",
+    "object.hasown": "npm:@nolyfill/object.hasown@^1",
+    "object.values": "npm:@nolyfill/object.values@^1",
+    "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@^1",
+    "which-typed-array": "npm:@nolyfill/which-typed-array@^1"
   }
 }

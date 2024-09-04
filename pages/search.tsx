@@ -16,7 +16,7 @@ export default function Search({ scopes }: SearchProps) {
 
   useEffect(() => {
     setScopes(scopes)
-  }, [setScopes])
+  }, [scopes, setScopes])
 
   useEffect(() => {
     // NOTE: This is a workaround for *not* executing query before hydration; without this
@@ -24,16 +24,18 @@ export default function Search({ scopes }: SearchProps) {
     if (!Object.keys(router.query).length) {
       return
     }
+
+    const execQuery = async () => {
+      const params = new URLSearchParams(router.query as Record<string, string>)
+      await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/search?${params}`)
+        .then(response => response.json())
+        .then(hits => setHits(hits))
+        .catch((err) => console.error(err))
+    }
     execQuery()
   }, [router.query])
 
-  const execQuery = async () => {
-    const params = new URLSearchParams(router.query as Record<string, string>)
-    await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/search?${params}`)
-      .then(response => response.json())
-      .then(hits => setHits(hits))
-      .catch((err) => console.error(err))
-  }
+
 
   return (
     <div className="flex flex-col items-baseline space-y-3 w-4/5 lg:w-1/2">

@@ -33,7 +33,7 @@ export default function Home({ scopes }: HomeProps) {
 
   useEffect(() => {
     setScopes(scopes)
-  }, [setScopes])
+  }, [scopes, setScopes])
 
   return (
     <div className="flex flex-col items-center w-4/5 lg:w-1/2">
