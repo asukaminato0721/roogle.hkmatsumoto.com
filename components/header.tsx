@@ -12,8 +12,7 @@ type FormData = {
 hljs.registerLanguage('rust', require('highlight.js/lib/languages/rust'));
 export default function Header() {
   const router = useRouter();
-  const [query_text, set_query_text] = useState("");
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       query: "",
       scope: "set:libstd"
@@ -24,12 +23,11 @@ export default function Header() {
   useEffect(() => {
     if (router.query.query) {
       setValue("query", router.query.query as string)
-      set_query_text(router.query.query as string)  
     }
     if (router.query.scope) {
       setValue("scope", router.query.scope as string)
     }
-  }, [router.query, setValue])
+  }, [router.query, setValue, watch])
 
   const onSubmit = (data: FormData) => {
     router.push({
@@ -57,14 +55,12 @@ export default function Header() {
         </select>
         <div className="relative w-full text-2xl p-2 my-3">
           <input type="text" {...register("query")} placeholder="Search for ..."
-            onChange={e=>set_query_text(e.target.value)}
             className="absolute -z-1  bg-transparent top-0 left-0 w-full font-mono font-bold text-2xl p-2 my-3 border focus:outline-none focus border-black focus:border-blue-600" />
-          <div dangerouslySetInnerHTML={{__html: hljs.highlight(query_text, {language: 'rust'}).value}}
-          className="absolute z-1 my-3 font-mono font-bold border border-transparent"
+          <div dangerouslySetInnerHTML={{__html: hljs.highlight(watch("query"), {language: 'rust'}).value}}
+          className="absolute z-1 my-3 font-mono font-bold border border-transparent  pointer-events-none"
           ></div>
         </div>
       </form>
-     
-        </div>
+    </div>
   )
 }
